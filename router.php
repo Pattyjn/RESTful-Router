@@ -45,18 +45,19 @@ class Router {
      *
      * Method names are case insensitive, so there is no need to check when checking the appropriate method exists
      * within the controller.
-     *
-     * @throws Exception if the file cannot be found
      */
     public function route() {
 
+        // Build the file path
+        $filePath = __DIR__ . DIRECTORY_SEPARATOR . $this->controllersDirectory . DIRECTORY_SEPARATOR . strtolower( $this->controller ) . '.php';
+
         // Is there a file to handle this controller
-        if( !file_exists( __DIR__ . DIRECTORY_SEPARATOR . $this->controllersDirectory . DIRECTORY_SEPARATOR . strtolower( $this->controller ) . '.php' ) ) {
+        if( !file_exists( $filePath ) ) {
             return; // Controller not found, escape TODO: Handle appropriately
         }
 
         // load the controller
-        require_once( __DIR__ . DIRECTORY_SEPARATOR . $this->controllersDirectory . DIRECTORY_SEPARATOR . strtolower( $this->controller ) . '.php' );
+        require_once( $filePath );
 
         // Build the controller name
         $controllerName = ucfirst( $this->controller ) . 'Controller';
